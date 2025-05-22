@@ -6,7 +6,7 @@ type Movie = {
 
 let movies: Movie[] = [];
 
-export function addMovie(movie: Omit<Movie, "id">): Movie {
+function addMovie(movie: Omit<Movie, "id">): Movie {
   const existingMovie = movies.find(
     (m) => m.title === movie.title && m.year === movie.year
   );
@@ -21,3 +21,5 @@ export function addMovie(movie: Omit<Movie, "id">): Movie {
   movies.push(newMovie);
   return newMovie;
 }
+
+export { addMovie, Movie };

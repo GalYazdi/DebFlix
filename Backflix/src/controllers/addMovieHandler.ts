@@ -1,0 +1,22 @@
+import { FastifyRequest, FastifyReply } from "fastify";
+import { addMovie, Movie } from "../services/addMovie";
+
+export async function addMovieHandler(
+  request: FastifyRequest<{ Body: Omit<Movie, "id"> }>,
+  reply: FastifyReply
+) {
+    try{
+    const movieData = request.body;
+
+    if (!movieData.title || !movieData.year) {
+        return reply.status(400).send({ error: "Title and year are required" });
+    }
+    const newMovie = addMovie(movieData);
+    return reply.status(201).send(newMovie); 
+    }
+    catch (error) {
+        const message = error instanceof Error ? error.message : "Unknown error";
+        return reply.status(500).send({ error: message }); 
+    }
+
+}

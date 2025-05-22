@@ -1,5 +1,5 @@
 import fastify from "fastify";
-import movieRoutes from "./routes/MovieRoutes";
+import movieRoutes from "./routes/movieRoutes";
 
 
 const app = fastify({ logger: true });

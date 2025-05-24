@@ -27,4 +27,8 @@ function getMovies(): Movie[] {
   return movies;
 }
 
+function getMovieById(id: number): Movie | undefined {
+  return movies.find((movie) => movie.id === id);
+}
+
 export { addMovie, Movie, getMovies };

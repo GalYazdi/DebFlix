@@ -19,7 +19,12 @@ function addMovie(movie: Omit<Movie, "id">): Movie {
     id: movies.length + 1,
   };
   movies.push(newMovie);
+
   return newMovie;
+}
+
+function getMovies(): Movie[] {
+  return movies;
 }
 
 export { addMovie, Movie };

@@ -27,4 +27,4 @@ function getMovies(): Movie[] {
   return movies;
 }
 
-export { addMovie, Movie };
+export { addMovie, Movie, getMovies };

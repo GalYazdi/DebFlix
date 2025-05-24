@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { addMovie, Movie } from "../services/moviesServices";
+import { addMovie, Movie, getMovies } from "../services/moviesServices";
 
 export async function addMovieHandler(
   request: FastifyRequest<{ Body: Omit<Movie, "id"> }>,
@@ -18,4 +18,16 @@ export async function addMovieHandler(
     return reply.status(500).send({ error: message });
   }
 }
-            
+
+export async function getMoviesHandler(
+  request: FastifyRequest,
+  reply: FastifyReply
+) {
+  try {
+    const movies = getMovies();
+    return reply.status(200).send(movies);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    return reply.status(500).send({ error: message });
+  }
+}

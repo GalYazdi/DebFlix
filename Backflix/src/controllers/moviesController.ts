@@ -1,5 +1,10 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { addMovie, Movie, getMovies } from "../services/moviesServices";
+import {
+  addMovie,
+  Movie,
+  getMovies,
+  deleteMovie,
+} from "../services/moviesServices";
 
 export async function addMovieHandler(
   request: FastifyRequest<{ Body: Omit<Movie, "id"> }>,
@@ -39,12 +44,29 @@ export async function getMovieByIdHandler(
   const id = Number(request.params.id);
   try {
     const movie = getMovies().find((m) => m.id === id);
-    console.log("movies:", getMovies());
 
     if (!movie) {
       return reply.status(404).send({ error: "Movie not found" });
     }
     return reply.status(200).send(movie);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    return reply.status(500).send({ error: message });
+  }
+}
+
+export async function deleteMovieHandler(
+  request: FastifyRequest<{ Querystring: { id: string } }>,
+  reply: FastifyReply
+) {
+  const id = Number(request.query.id);
+  try {
+    const movie = getMovies().find((m) => m.id === id);
+    if (!movie) {
+      return reply.status(404).send({ error: "Movie not found" });
+    }
+    deleteMovie(id);
+    return reply.status(204).send();
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
     return reply.status(500).send({ error: message });

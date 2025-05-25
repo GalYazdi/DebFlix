@@ -31,4 +31,12 @@ function getMovieById(id: number): Movie | undefined {
   return movies.find((movie) => movie.id === id);
 }
 
-export { addMovie, Movie, getMovies };
+function deleteMovie(id: number): void {
+  const index = movies.findIndex((movie) => movie.id === id);
+  if (index === -1) {
+    throw new Error("Movie not found");
+  }
+  movies.splice(index, 1);
+}
+
+export { addMovie, Movie, getMovies, deleteMovie };

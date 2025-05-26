@@ -43,4 +43,4 @@ function deleteMovie(id: number): void {
   movies.splice(index, 1);
 }
 
-export { addMovie, Movie, getMovies, deleteMovie };
+export { addMovie, Movie, getMovies, deleteMovie, getMovieById };

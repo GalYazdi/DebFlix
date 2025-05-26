@@ -5,6 +5,7 @@ import {
   getMovies,
   deleteMovie,
 } from "../services/moviesServices";
+import { get } from "http";
 
 export async function addMovieHandler(
   request: FastifyRequest<{ Body: Omit<Movie, "id"> }>,

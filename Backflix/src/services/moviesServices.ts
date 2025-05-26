@@ -2,13 +2,17 @@ type Movie = {
   id: number;
   title: string;
   year: number;
+  director: string;
 };
 
 let movies: Movie[] = [];
 
 function addMovie(movie: Omit<Movie, "id">): Movie {
   const existingMovie = movies.find(
-    (m) => m.title === movie.title && m.year === movie.year
+    (m) =>
+      m.title === movie.title &&
+      m.year === movie.year &&
+      m.director === movie.director
   );
   if (existingMovie) {
     throw new Error("Movie already exists");

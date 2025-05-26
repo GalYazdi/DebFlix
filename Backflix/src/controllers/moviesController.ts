@@ -3,6 +3,7 @@ import {
   addMovie,
   Movie,
   getMovies,
+  getMovieById,
   deleteMovie,
 } from "../services/moviesServices";
 import { get } from "http";
@@ -44,7 +45,7 @@ export async function getMovieByIdHandler(
 ) {
   const id = Number(request.params.id);
   try {
-    const movie = getMovies().find((m) => m.id === id);
+    const movie = getMovieById(id);
 
     if (!movie) {
       return reply.status(404).send({ error: "Movie not found" });
@@ -62,10 +63,6 @@ export async function deleteMovieHandler(
 ) {
   const id = Number(request.query.id);
   try {
-    const movie = getMovies().find((m) => m.id === id);
-    if (!movie) {
-      return reply.status(404).send({ error: "Movie not found" });
-    }
     deleteMovie(id);
     return reply.status(204).send();
   } catch (error) {

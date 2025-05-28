@@ -1,13 +1,9 @@
-type Movie = {
-  id: number;
-  title: string;
-  year: number;
-  director: string;
-};
+import { Movie } from "../types/movie";
+import { v4 as uuidv4 } from "uuid";
 
-let movies: Movie[] = [];
+const movies: Movie[] = [];
 
-function addMovie(movie: Omit<Movie, "id">): Movie {
+export const addMovie = (movie: Omit<Movie, "id">): Movie => {
   const existingMovie = movies.find(
     (m) =>
       m.title === movie.title &&
@@ -20,27 +16,22 @@ function addMovie(movie: Omit<Movie, "id">): Movie {
 
   const newMovie: Movie = {
     ...movie,
-    id: movies.length + 1,
+    id: uuidv4(),
   };
   movies.push(newMovie);
 
   return newMovie;
-}
+};
 
-function getMovies(): Movie[] {
-  return movies;
-}
+export const getMovies = () => movies;
 
-function getMovieById(id: number): Movie | undefined {
-  return movies.find((movie) => movie.id === id);
-}
+export const getMovieById = (id: string): Movie | undefined =>
+  movies.find((movie) => movie.id === id);
 
-function deleteMovie(id: number): void {
+export const deleteMovie = (id: string): void => {
   const index = movies.findIndex((movie) => movie.id === id);
   if (index === -1) {
     throw new Error("Movie not found");
   }
   movies.splice(index, 1);
-}
-
-export { addMovie, Movie, getMovies, deleteMovie, getMovieById };
+};

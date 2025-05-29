@@ -30,8 +30,7 @@ export const getMovieById = (id: string): Movie | undefined =>
 
 export const deleteMovie = (id: string): void => {
   const index = movies.findIndex((movie) => movie.id === id);
-  if (index === -1) {
-    throw new Error("Movie not found");
-  }
+  index === -1 ? (() => { throw new Error("Movie not found") })() : null;
+
   movies.splice(index, 1);
 };

@@ -66,10 +66,10 @@ export const getMovieByIdHandler = async (
   }
 };
 
-export async function deleteMovieHandler(
+export const deleteMovieHandler = (
   request: FastifyRequest<{ Querystring: { id: string } }>,
   reply: FastifyReply
-) {
+) => {
   const id = request.query.id;
   try {
     deleteMovie(id);
@@ -80,4 +80,4 @@ export async function deleteMovieHandler(
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .send({ error: message });
   }
-}
+};

@@ -1,7 +1,8 @@
 import fastify from "fastify";
-
+import movieRoutes from "./routes/moviesRoute";
 
 const app = fastify({ logger: true });
+app.register(movieRoutes, { prefix: "/movies" });
 
 app.listen({ port: 3000 }, (err, address) => {
   if (err) {
@@ -10,4 +11,3 @@ app.listen({ port: 3000 }, (err, address) => {
   }
   app.log.info(`Server listening at ${address}`);
 });
-

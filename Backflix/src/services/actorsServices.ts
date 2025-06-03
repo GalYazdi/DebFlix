@@ -6,11 +6,8 @@ const actors: Actor[] = [];
 
 export const addActor = (
   actor: Omit<Actor, "id"> & { movies?: Movie[] }
-): Actor => {
-  const existingActor = actors.find(
-    (a) => a.name === actor.name && a.age === actor.age
-  );
-  if (existingActor) {
+) => {
+  if (actors.find((a) => a.name === actor.name && a.age === actor.age)) {
     throw new Error("Actor already exists");
   }
 
@@ -21,7 +18,6 @@ export const addActor = (
   };
 
   actors.push(newActor);
-  return newActor;
 };
 
 export const getActors = () => actors;

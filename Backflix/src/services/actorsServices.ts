@@ -4,10 +4,13 @@ import { Actor } from "../types/actor";
 
 const actors: Actor[] = [];
 
-export const addActor = (
-  actor: Omit<Actor, "id"> & { movies?: Movie[] }
-) => {
-  if (actors.find((a) => a.name === actor.name && a.age === actor.age)) {
+export const addActor = (actor: Omit<Actor, "id">) => {
+  if (
+    actors.find(
+      ({ name, birthDate }) =>
+        name === actor.name && birthDate === actor.birthDate
+    )
+  ) {
     throw new Error("Actor already exists");
   }
 

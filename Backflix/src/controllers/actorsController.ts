@@ -11,11 +11,11 @@ import { StatusCodes } from "http-status-codes";
 import { handleRequest } from "../utils/handleRequest";
 
 export const addActorHandler = async (
-  request: FastifyRequest<{ Body: Omit<Actor, "id"> & { movies?: Movie[] } }>,
+  request: FastifyRequest<{ Body: Omit<Actor, "id"> }>,
   reply: FastifyReply
 ) => {
-  const { name, age } = request.body;
-  if (!name || !age) {
+  const { name, birthDate } = request.body;
+  if (!name || !birthDate) {
     return reply
       .status(StatusCodes.BAD_REQUEST)
       .send({ error: "Name and age are required" });

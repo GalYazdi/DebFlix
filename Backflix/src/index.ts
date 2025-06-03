@@ -1,9 +1,12 @@
 import fastify from "fastify";
 import movieRoutes from "./routes/moviesRoute";
+import categoriesRoute from "./routes/categoriesRoute";
 import actorRoutes from "./routes/actorsRoutes";
 
 const app = fastify({ logger: true });
 app.register(movieRoutes, { prefix: "/movies" });
+
+app.register(categoriesRoute, { prefix: "/categories" });
 app.register(actorRoutes, { prefix: "/actors" });
 
 app.listen({ port: 3000 }, (err, address) => {

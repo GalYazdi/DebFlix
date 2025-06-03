@@ -45,7 +45,6 @@ export const getMovieByIdHandler = async (
       return;
     }
     return movie;
-    // return movie ?? reply.status(StatusCodes.NOT_FOUND).send({ error: "Movie not found" });
   });
 };
 

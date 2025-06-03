@@ -7,74 +7,51 @@ import {
 } from "../services/categoriesServices";
 import { StatusCodes } from "http-status-codes";
 import { Category } from "../types/category";
+import { handleRequest } from "../utils/handleRequest";
 
 export const addCategoryHandler = async (
   request: FastifyRequest<{ Body: Omit<Category, "id"> }>,
   reply: FastifyReply
 ) => {
-  try {
-    const { name } = request.body;
-    if (!name) {
-      return reply
-        .status(StatusCodes.BAD_REQUEST)
-        .send({ error: "Name is required" });
-    }
-    addCategory(request.body);
-  } catch (error) {
-    const message = error instanceof Error ? error.message : "unknown error";
+  const { name } = request.body;
+  if (!name) {
     return reply
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ error: message });
+      .status(StatusCodes.BAD_REQUEST)
+      .send({ error: "Name is required" });
   }
+  return handleRequest(reply, StatusCodes.CREATED, () => {
+    addCategory(request.body);
+    return {message: "Category added successfully"}
+  });
 };
 
 export const getCategoriesHandler = async (
   request: FastifyRequest,
   reply: FastifyReply
 ) => {
-  try {
-    const categories = getCategories();
-    return reply.status(StatusCodes.OK).send(categories);
-  } catch (error) {
-    const message = error instanceof Error ? error.message : "unknown error";
-    return reply
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ error: message });
-  }
+  return handleRequest(reply, StatusCodes.OK, getCategories);
 };
 
 export const getCategoryByIdHandler = async (
   request: FastifyRequest<{ Params: { id: string } }>,
   reply: FastifyReply
 ) => {
-  try {
-    const id = request.params.id;
+  const id = request.params.id;
+  return handleRequest(reply, StatusCodes.OK, () => {
     const category = getCategoryById(id);
-    return !category
-      ? reply
-          .status(StatusCodes.NOT_FOUND)
-          .send({ error: "category not found" })
-      : reply.status(StatusCodes.OK).send(category);
-  } catch (error) {
-    const message = error instanceof Error ? error.message : "unknown error";
-    return reply
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ error: message });
-  }
+    if (!category) {
+      return reply.status(StatusCodes.NOT_FOUND).send({ error: "Category not found" });
+    }
+    return category;
+  });
 };
 
 export const deleteCategoryHandler = async (
   request: FastifyRequest<{ Querystring: { id: string } }>,
   reply: FastifyReply
 ) => {
-  try {
-    const id = request.query.id;
+  const id = request.query.id;
+  return handleRequest(reply, StatusCodes.NO_CONTENT, () => {
     deleteCategory(id);
-    return reply.status(StatusCodes.NO_CONTENT).send();
-  } catch (error) {
-    const message = error instanceof Error ? error.message : "unknown error";
-    return reply
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ error: message });
-  }
+  });
 };

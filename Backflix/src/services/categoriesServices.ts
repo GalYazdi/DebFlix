@@ -4,9 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 const categories: Category[] = [];
 
 export const addCategory = (category: Omit<Category, "id">) => {
-  const existingCategory = categories.find((c) => c.name === category.name);
-
-  if (existingCategory) {
+  if (categories.find((c) => c.name === category.name)) {
     throw new Error("Category already exists");
   }
 

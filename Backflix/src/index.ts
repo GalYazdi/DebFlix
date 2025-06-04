@@ -1,12 +1,22 @@
 import fastify from "fastify";
 import cors from "@fastify/cors";
-import {movieRoutes} from "./routes/moviesRoute";
-import {categoriesRoute} from "./routes/categoriesRoute";
-import {actorRoutes} from "./routes/actorsRoutes";
+import { movieRoutes } from "./routes/moviesRoute";
+import { categoriesRoute } from "./routes/categoriesRoute";
+import { actorRoutes } from "./routes/actorsRoutes";
+import { generateFakeMovies } from "./utils/faker/generateFakeMovies";
+import { actors, categories, movies } from "./services/mockDB";
+import { generateFakeActors } from "./utils/faker/generateFakeActors";
+import { generateFakeCategories } from "./utils/faker/generateFakeCategories";
 
 const start = async () => {
   const app = fastify({ logger: true });
   try {
+    generateFakeMovies(3);
+    generateFakeActors(3);
+    generateFakeCategories(3);
+
+    console.log("categories", JSON.stringify(categories, null, 2));
+
     await app.register(cors, { origin: "*" });
 
     app.register(movieRoutes, { prefix: "/movies" });

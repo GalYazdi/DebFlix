@@ -12,7 +12,9 @@
   "description": "",
   "dependencies": {
     "fastify": "^5.3.3",
-    "uuid": "^11.1.0"
+    "fastify-type-provider-zod": "^4.0.2",
+    "uuid": "^11.1.0",
+    "zod": "^3.25.51"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.8.0",

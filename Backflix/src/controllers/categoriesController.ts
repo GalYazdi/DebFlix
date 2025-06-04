@@ -14,6 +14,7 @@ export const addCategoryHandler = async (
   reply: FastifyReply
 ) => {
   const { name } = request.body;
+
   if (!name) {
     return reply
       .status(StatusCodes.BAD_REQUEST)
@@ -21,7 +22,7 @@ export const addCategoryHandler = async (
   }
   return handleRequest(reply, StatusCodes.CREATED, () => {
     addCategory(request.body);
-    return {message: "Category added successfully"}
+    return { message: "Category added successfully" };
   });
 };
 
@@ -39,8 +40,11 @@ export const getCategoryByIdHandler = async (
   const id = request.params.id;
   return handleRequest(reply, StatusCodes.OK, () => {
     const category = getCategoryById(id);
+
     if (!category) {
-      return reply.status(StatusCodes.NOT_FOUND).send({ error: "Category not found" });
+      return reply
+        .status(StatusCodes.NOT_FOUND)
+        .send({ error: "Category not found" });
     }
     return category;
   });

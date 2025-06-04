@@ -6,7 +6,7 @@ import {
   deleteCategoryHandler,
 } from "../controllers/categoriesController";
 
-export default function categoriesRoute(fastify: FastifyInstance) {
+export const categoriesRoute = (fastify: FastifyInstance) => {
   return (
     fastify.post("/add", addCategoryHandler),
     fastify.get("/getAll", getCategoriesHandler),

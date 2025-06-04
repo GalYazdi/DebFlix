@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
 import { Movie } from "../types/movie";
 import { Actor } from "../types/actor";
+import { actors } from "./mockDB";
 
-const actors: Actor[] = [];
 
 export const addActor = (actor: Omit<Actor, "id">) => {
   if (

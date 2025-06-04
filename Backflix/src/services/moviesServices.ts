@@ -1,7 +1,6 @@
 import { Movie } from "../types/movie";
 import { v4 as uuidv4 } from "uuid";
-
-const movies: Movie[] = [];
+import { movies } from "./mockDB";
 
 export const addMovie = (movie: Omit<Movie, "id">) => {
   if (
@@ -20,7 +19,6 @@ export const addMovie = (movie: Omit<Movie, "id">) => {
     id: uuidv4(),
   };
   movies.push(newMovie);
-
 };
 
 export const getMovies = () => movies;

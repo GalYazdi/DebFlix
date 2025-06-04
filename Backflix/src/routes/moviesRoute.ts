@@ -6,7 +6,7 @@ import {
   deleteMovieHandler,
 } from "../controllers/moviesController";
 
-export default async function movieRoutes(fastify: FastifyInstance) {
+export const movieRoutes = (fastify: FastifyInstance) => {
   fastify.addHook("onRequest", async (request, reply) => {
     console.log("New /movies request:");
     console.log("Method:", request.method);

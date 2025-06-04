@@ -7,7 +7,7 @@ import {
   deleteActorHandler,
 } from "../controllers/actorsController";
 
-export default async function actorRoutes(fastify: FastifyInstance) {
+export const actorRoutes = (fastify: FastifyInstance) => {
   fastify.addHook("onRequest", async (request, reply) => {
     if (request.method === "DELETE") {
       console.log("Method:", request.method);
@@ -19,4 +19,4 @@ export default async function actorRoutes(fastify: FastifyInstance) {
   fastify.get("/getAll", getActorsHandler);
   fastify.get("/get/:id", getActorByIdHandler);
   fastify.delete("/delete", deleteActorHandler);
-}
+};

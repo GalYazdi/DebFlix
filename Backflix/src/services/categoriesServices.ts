@@ -1,7 +1,6 @@
 import { Category } from "../types/category";
 import { v4 as uuidv4 } from "uuid";
-
-const categories: Category[] = [];
+import { categories } from "./mockDB";
 
 export const addCategory = (category: Omit<Category, "id">) => {
   if (categories.find((c) => c.name === category.name)) {

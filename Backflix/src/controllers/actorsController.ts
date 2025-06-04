@@ -15,6 +15,7 @@ export const addActorHandler = async (
   reply: FastifyReply
 ) => {
   const { name, birthDate } = request.body;
+
   if (!name || !birthDate) {
     return reply
       .status(StatusCodes.BAD_REQUEST)
@@ -40,6 +41,7 @@ export const getActorByIdHandler = async (
   const id = request.params.id;
   return handleRequest(reply, StatusCodes.OK, () => {
     const actor = getActorById(id);
+
     if (!actor) {
       return reply
         .status(StatusCodes.NOT_FOUND)

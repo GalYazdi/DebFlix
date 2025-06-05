@@ -1,9 +1,8 @@
 import { z } from "zod";
 
 export const moviesSchema = z.object({
-  id: z.string().uuid(),
-  title: z.string(),
-  year: z.number().int().max(new Date().getFullYear()),
+  title: z.string().min(2),
+  year: z.number().int().min(1800).max(new Date().getFullYear()),
   director: z.string(),
 });
 

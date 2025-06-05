@@ -5,6 +5,7 @@ import {
   getMovieByIdHandler,
   deleteMovieHandler,
 } from "../controllers/moviesController";
+import { moviesSchema } from "../schemas/moviesSchema";
 
 export const movieRoutes = (fastify: FastifyInstance) => {
   fastify.addHook("onRequest", async (request, reply) => {
@@ -16,8 +17,8 @@ export const movieRoutes = (fastify: FastifyInstance) => {
     console.log("Query:", request.query);
   });
 
-  fastify.post("/add", addMovieHandler);
+  fastify.post("/add", { schema: { body: moviesSchema } }, addMovieHandler);
   fastify.get("/getAll", getMoviesHandler);
   fastify.get("/get/:id", getMovieByIdHandler);
   fastify.delete("/delete", deleteMovieHandler);
-}
+};

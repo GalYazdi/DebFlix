@@ -7,6 +7,8 @@ import {
   deleteActorHandler,
 } from "../controllers/actorsController";
 import { actorsSchema } from "../schemas/actorsSchema";
+import { paramsSchema } from "../schemas/paramsSchema";
+import { queryStringSchema } from "../schemas/queryStringSchema";
 
 export const actorRoutes = (fastify: FastifyInstance) => {
   fastify.addHook("onRequest", async (request, reply) => {
@@ -18,6 +20,6 @@ export const actorRoutes = (fastify: FastifyInstance) => {
   });
   fastify.post("/add", { schema: { body: actorsSchema } }, addActorHandler);
   fastify.get("/getAll", getActorsHandler);
-  fastify.get("/get/:id", getActorByIdHandler);
-  fastify.delete("/delete", deleteActorHandler);
+  fastify.get("/get/:id", {schema: {params: paramsSchema}}, getActorByIdHandler);
+  fastify.delete("/delete", {schema: {querystring: queryStringSchema}}, deleteActorHandler);
 };

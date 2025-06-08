@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { moviesSchema } from "./moviesSchema";
+import { fullMoviesSchema, moviesInputSchema } from "./moviesSchema";
 
 export const actorsSchema = z.object({
   name: z.string(),
@@ -11,7 +11,7 @@ export const actorsSchema = z.object({
         new Date(val) < new Date() &&
         new Date(val) >= new Date("1900-01-01")
     ),
-  movies: z.array(moviesSchema).optional(),
-});
+  movies: z.array(fullMoviesSchema).optional(),
+}).strict();
 
 export type actorsInput = z.infer<typeof actorsSchema>;

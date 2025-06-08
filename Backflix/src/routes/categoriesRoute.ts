@@ -6,6 +6,8 @@ import {
   deleteCategoryHandler,
 } from "../controllers/categoriesController";
 import { categoriesSchema } from "../schemas/categoriesSchema";
+import { paramsSchema } from "../schemas/paramsSchema";
+import { queryStringSchema } from "../schemas/queryStringSchema";
 
 export const categoriesRoute = (fastify: FastifyInstance) => {
   return (
@@ -15,7 +17,15 @@ export const categoriesRoute = (fastify: FastifyInstance) => {
       addCategoryHandler
     ),
     fastify.get("/getAll", getCategoriesHandler),
-    fastify.get("/get/:id", getCategoryByIdHandler),
-    fastify.delete("/delete", deleteCategoryHandler)
+    fastify.get(
+      "/get/:id",
+      { schema: { params: paramsSchema } },
+      getCategoryByIdHandler
+    ),
+    fastify.delete(
+      "/delete",
+      { schema: { querystring: queryStringSchema } },
+      deleteCategoryHandler
+    )
   );
 };

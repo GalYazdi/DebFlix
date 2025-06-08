@@ -8,18 +8,19 @@ import {
 import { StatusCodes } from "http-status-codes";
 import { Movie } from "../types/movie";
 import { handleRequest } from "../utils/handleRequest";
+import { moviesInput } from "../schemas/moviesSchema";
 
 export const addMovieHandler = async (
-  request: FastifyRequest<{ Body: Omit<Movie, "id"> }>,
+  request: FastifyRequest<{ Body: moviesInput }>,
   reply: FastifyReply
 ) => {
-  const { title, year } = request.body;
+  // const { title, year } = request.body;
 
-  if (!title || !year) {
-    return reply
-      .status(StatusCodes.BAD_REQUEST)
-      .send({ error: "Title and year are required" });
-  }
+  // if (!title || !year) {
+  //   return reply
+  //     .status(StatusCodes.BAD_REQUEST)
+  //     .send({ error: "Title and year are required" });
+  // }
   return handleRequest(reply, StatusCodes.CREATED, () => {
     addMovie(request.body);
     return { message: "Movie created successfully" };

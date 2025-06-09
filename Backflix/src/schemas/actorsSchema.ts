@@ -1,17 +1,18 @@
 import { z } from "zod";
-import { fullMoviesSchema, moviesInputSchema } from "./moviesSchema";
+import { fullMoviesSchema } from "./moviesSchema";
 
-export const actorsSchema = z.object({
-  name: z.string(),
-  birthDate: z
-    .string()
-    .refine(
-      (val) =>
-        !isNaN(Date.parse(val)) &&
-        new Date(val) < new Date() &&
-        new Date(val) >= new Date("1900-01-01")
-    ),
-  movies: z.array(fullMoviesSchema).optional(),
-}).strict();
+export const actorsSchema = z
+  .object({
+    name: z.string(),
+    birthDate: z
+      .number()
+      .int()
+      .min(new Date("1900-01-01").getTime())
+      .max(Date.now()),
+    movies: z.array(fullMoviesSchema).optional(),
+  })
+  .strict();
 
 export type actorsInput = z.infer<typeof actorsSchema>;
+
+export const addActorSchema = { body: actorsSchema };

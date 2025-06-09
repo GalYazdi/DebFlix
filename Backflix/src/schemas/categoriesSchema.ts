@@ -9,3 +9,4 @@ export const categoriesSchema = z
   .strict();
 
 export type categoriesInput = z.infer<typeof categoriesSchema>;
+export const addCategorySchema = {body: categoriesSchema}

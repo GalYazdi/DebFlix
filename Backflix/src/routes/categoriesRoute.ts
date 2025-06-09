@@ -5,26 +5,26 @@ import {
   getCategoryByIdHandler,
   deleteCategoryHandler,
 } from "../controllers/categoriesController";
-import { categoriesSchema } from "../schemas/categoriesSchema";
-import { paramsSchema } from "../schemas/paramsSchema";
-import { queryStringSchema } from "../schemas/queryStringSchema";
+import { addCategorySchema, categoriesSchema } from "../schemas/categoriesSchema";
+import { getByIdParamsSchema, idParamsSchema } from "../schemas/paramsSchema";
+import { getByIdQuerySchema, idQuerySchema } from "../schemas/queryStringSchema";
 
 export const categoriesRoute = (fastify: FastifyInstance) => {
   return (
     fastify.post(
       "/add",
-      { schema: { body: categoriesSchema } },
+      { schema: addCategorySchema },
       addCategoryHandler
     ),
     fastify.get("/getAll", getCategoriesHandler),
     fastify.get(
       "/get/:id",
-      { schema: { params: paramsSchema } },
+      { schema: getByIdParamsSchema },
       getCategoryByIdHandler
     ),
     fastify.delete(
       "/delete",
-      { schema: { querystring: queryStringSchema } },
+      { schema: getByIdQuerySchema },
       deleteCategoryHandler
     )
   );

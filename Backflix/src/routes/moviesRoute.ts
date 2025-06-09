@@ -5,9 +5,12 @@ import {
   getMovieByIdHandler,
   deleteMovieHandler,
 } from "../controllers/moviesController";
-import { moviesInputSchema } from "../schemas/moviesSchema";
-import { paramsSchema } from "../schemas/paramsSchema";
-import { queryStringSchema } from "../schemas/queryStringSchema";
+import { addMovieSchema, moviesInputSchema } from "../schemas/moviesSchema";
+import { getByIdParamsSchema, idParamsSchema } from "../schemas/paramsSchema";
+import {
+  getByIdQuerySchema,
+  idQuerySchema,
+} from "../schemas/queryStringSchema";
 
 export const movieRoutes = (fastify: FastifyInstance) => {
   fastify.addHook("onRequest", async (request, reply) => {
@@ -19,8 +22,8 @@ export const movieRoutes = (fastify: FastifyInstance) => {
     console.log("Query:", request.query);
   });
 
-  fastify.post("/add", { schema: { body: moviesInputSchema } }, addMovieHandler);
-  fastify.get("/getAll",  getMoviesHandler);
-  fastify.get("/get/:id", {schema: {params: paramsSchema}}, getMovieByIdHandler);
-  fastify.delete("/delete", {schema: {querystring: queryStringSchema}}, deleteMovieHandler);
+  fastify.post("/add", { schema: addMovieSchema }, addMovieHandler);
+  fastify.get("/getAll", getMoviesHandler);
+  fastify.get("/get/:id", { schema: getByIdParamsSchema }, getMovieByIdHandler);
+  fastify.delete("/delete", { schema: getByIdQuerySchema }, deleteMovieHandler);
 };

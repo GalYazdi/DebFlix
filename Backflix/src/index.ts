@@ -8,15 +8,13 @@ import { actors, categories, movies } from "./services/mockDB";
 import { generateFakeActors } from "./utils/faker/generateFakeActors";
 import { generateFakeCategories } from "./utils/faker/generateFakeCategories";
 import { validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
+import { generateFakeData } from "./utils/faker/generateAllData";
 
 const start = async () => {
-  const app = fastify({logger: true}).withTypeProvider<ZodTypeProvider>();
+  const app = fastify({ logger: true }).withTypeProvider<ZodTypeProvider>();
   app.setValidatorCompiler(validatorCompiler);
   try {
-    generateFakeMovies(3);
-    generateFakeActors(3);
-    generateFakeCategories(3);
-
+    generateFakeData(3);
 
     await app.register(cors, { origin: "*" });
 

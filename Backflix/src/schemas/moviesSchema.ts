@@ -1,14 +1,17 @@
 import { z } from "zod";
 
-export const moviesInputSchema = z.object({
-  title: z.string().min(2),
-  year: z.number().int().min(1800).max(new Date().getFullYear()),
-  director: z.string(),
-});
+export const moviesInputSchema = z
+  .object({
+    title: z.string().min(1),
+    year: z.number().int().min(1800).max(new Date().getFullYear()),
+    director: z.string(),
+  })
+  .strict();
 
-export const fullMoviesSchema = moviesInputSchema.extend({
-  id: z.string().uuid(),
-});
+export const fullMoviesSchema = moviesInputSchema
+  .extend({
+    id: z.string().uuid(),
+  })
+  .strict();
 
 export type moviesInput = z.infer<typeof moviesInputSchema>;
-export type fullMovie = z.infer<typeof fullMoviesSchema>;

@@ -1,5 +1,7 @@
-import {z} from "zod"
+import { z } from "zod";
 
-export const paramsSchema = z.object({
-    id: z.string().uuid()
-})
+export const paramsSchema = z
+  .object({
+    id: z.string().uuid(),
+  })
+  .strict();

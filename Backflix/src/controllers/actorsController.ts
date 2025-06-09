@@ -13,13 +13,6 @@ export const addActorHandler = async (
   request: FastifyRequest<{ Body: actorsInput }>,
   reply: FastifyReply
 ) => {
-  // const { name, birthDate } = request.body;
-
-  // if (!name || !birthDate) {
-  //   return reply
-  //     .status(StatusCodes.BAD_REQUEST)
-  //     .send({ error: "Name and age are required" });
-  // }
   return handleRequest(reply, StatusCodes.CREATED, () => {
     addActor({ ...request.body, birthDate: new Date(request.body.birthDate) });
     return { message: "Actor created Successfully" };

@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { categories } from "../../services/mockDB";
-import { getRandomCategory, getRandomMovies } from "../fakeHelpers";
+import { getRandomCategory, getRandomMovies } from "./fakeHelpers";
 import { Category } from "../../types/category";
 
 const fakeCategoryData = (): Category => ({

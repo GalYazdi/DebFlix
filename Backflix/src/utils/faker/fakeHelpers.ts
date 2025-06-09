@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { movies } from "../services/mockDB";
+import { movies } from "../../services/mockDB";
 
 export const getRandomMovies = () => {
   const numOfMovies = faker.number.int({ min: 1, max: 3 });

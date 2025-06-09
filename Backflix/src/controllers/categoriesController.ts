@@ -13,13 +13,6 @@ export const addCategoryHandler = async (
   request: FastifyRequest<{ Body: categoriesInput }>,
   reply: FastifyReply
 ) => {
-  // const { name } = request.body;
-
-  // if (!name) {
-  //   return reply
-  //     .status(StatusCodes.BAD_REQUEST)
-  //     .send({ error: "Name is required" });
-  // }
   return handleRequest(reply, StatusCodes.CREATED, () => {
     addCategory({ ...request.body, movies: request.body.movies || [] });
     return { message: "Category added successfully" };
@@ -53,7 +46,6 @@ export const deleteCategoryHandler = async (
   request: FastifyRequest<{ Querystring: { id: string } }>,
   reply: FastifyReply
 ) => {
-  // const id = request.query.id;
   return handleRequest(reply, StatusCodes.NO_CONTENT, () => {
     deleteCategory(request.query.id);
   });

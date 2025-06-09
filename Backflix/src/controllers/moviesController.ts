@@ -13,13 +13,6 @@ export const addMovieHandler = async (
   request: FastifyRequest<{ Body: moviesInput }>,
   reply: FastifyReply
 ) => {
-  // const { title, year } = request.body;
-
-  // if (!title || !year) {
-  //   return reply
-  //     .status(StatusCodes.BAD_REQUEST)
-  //     .send({ error: "Title and year are required" });
-  // }
   return handleRequest(reply, StatusCodes.CREATED, () => {
     addMovie(request.body);
     return { message: "Movie created successfully" };
@@ -52,7 +45,6 @@ export const deleteMovieHandler = (
   request: FastifyRequest<{ Querystring: { id: string } }>,
   reply: FastifyReply
 ) => {
-  // const id = request.query.id;
   return handleRequest(reply, StatusCodes.NO_CONTENT, () => {
     deleteMovie(request.query.id);
   });

@@ -4,7 +4,7 @@ import { Movie } from "../../types/movie";
 
 const fakeMovieData = (): Movie => ({
   id: faker.string.uuid(),
-  title: faker.lorem.words(3),
+  title: faker.lorem.words(1),
   year: faker.date.past().getFullYear(),
   director: faker.person.fullName(),
 });

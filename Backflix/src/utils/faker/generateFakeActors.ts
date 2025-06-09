@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { actors } from "../../services/mockDB";
-import { getRandomMovies } from "../fakeHelpers";
+import { getRandomMovies } from "./fakeHelpers";
 import { Actor } from "../../types/actor";
 
 const fakeActorData = (): Actor => ({

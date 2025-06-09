@@ -5,12 +5,9 @@ import {
   getMovieByIdHandler,
   deleteMovieHandler,
 } from "../controllers/moviesController";
-import { addMovieSchema, moviesInputSchema } from "../schemas/moviesSchema";
-import { getByIdParamsSchema, idParamsSchema } from "../schemas/paramsSchema";
-import {
-  getByIdQuerySchema,
-  idQuerySchema,
-} from "../schemas/queryStringSchema";
+import { addMovieSchema } from "../schemas/moviesSchema";
+import { getByIdParamsSchema } from "../schemas/paramsSchema";
+import { getByIdQuerySchema } from "../schemas/queryStringSchema";
 
 export const movieRoutes = (fastify: FastifyInstance) => {
   fastify.addHook("onRequest", async (request, reply) => {

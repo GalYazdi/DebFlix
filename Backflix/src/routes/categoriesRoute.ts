@@ -5,9 +5,9 @@ import {
   getCategoryByIdHandler,
   deleteCategoryHandler,
 } from "../controllers/categoriesController";
-import { addCategorySchema, categoriesSchema } from "../schemas/categoriesSchema";
-import { getByIdParamsSchema, idParamsSchema } from "../schemas/paramsSchema";
-import { getByIdQuerySchema, idQuerySchema } from "../schemas/queryStringSchema";
+import { addCategorySchema } from "../schemas/categoriesSchema";
+import { getByIdParamsSchema } from "../schemas/paramsSchema";
+import { getByIdQuerySchema } from "../schemas/queryStringSchema";
 
 export const categoriesRoute = (fastify: FastifyInstance) => {
   return (

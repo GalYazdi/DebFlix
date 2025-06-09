@@ -6,11 +6,11 @@ import {
   getActorByIdHandler,
   deleteActorHandler,
 } from "../controllers/actorsController";
-import { actorsSchema, addActorSchema } from "../schemas/actorsSchema";
-import { getByIdParamsSchema, idParamsSchema } from "../schemas/paramsSchema";
+import {addActorSchema } from "../schemas/actorsSchema";
+import { getByIdParamsSchema } from "../schemas/paramsSchema";
 import {
   getByIdQuerySchema,
-  idQuerySchema,
+ 
 } from "../schemas/queryStringSchema";
 
 export const actorRoutes = (fastify: FastifyInstance) => {

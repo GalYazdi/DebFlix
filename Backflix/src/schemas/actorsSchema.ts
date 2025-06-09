@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { fullMoviesSchema } from "./moviesSchema";
+import { moviesSchema } from "./moviesSchema";
 
 export const actorsSchema = z
   .object({
@@ -9,7 +9,7 @@ export const actorsSchema = z
       .int()
       .min(new Date("1900-01-01").getTime())
       .max(Date.now()),
-    movies: z.array(fullMoviesSchema).optional(),
+    movies: z.array(moviesSchema).optional(),
   })
   .strict();
 

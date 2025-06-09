@@ -1,10 +1,10 @@
 import { z } from "zod";
-import { fullMoviesSchema } from "./moviesSchema";
+import { moviesSchema } from "./moviesSchema";
 
 export const categoriesSchema = z
   .object({
     name: z.string(),
-    movies: z.array(fullMoviesSchema).optional(),
+    movies: z.array(moviesSchema).optional(),
   })
   .strict();
 

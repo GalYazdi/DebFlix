@@ -13,6 +13,7 @@ export const addMovieHandler = async (
   request: FastifyRequest<{ Body: moviesInput }>,
   reply: FastifyReply
 ) => {
+  console.log("aaa", request.body)
   return handleRequest(reply, StatusCodes.CREATED, () => {
     addMovie(request.body);
     return { message: "Movie created successfully" };

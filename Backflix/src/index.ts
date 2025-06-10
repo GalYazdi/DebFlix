@@ -3,12 +3,13 @@ import cors from "@fastify/cors";
 import { movieRoutes } from "./routes/moviesRoute";
 import { categoriesRoute } from "./routes/categoriesRoute";
 import { actorRoutes } from "./routes/actorsRoutes";
-import { generateFakeMovies } from "./utils/faker/generateFakeMovies";
-import { actors, categories, movies } from "./services/mockDB";
-import { generateFakeActors } from "./utils/faker/generateFakeActors";
-import { generateFakeCategories } from "./utils/faker/generateFakeCategories";
 import { validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
 import { generateFakeData } from "./utils/faker/generateAllData";
+import fastifySwagger from "@fastify/swagger";
+import fastifySwaggerUi from "@fastify/swagger-ui";
+import yaml from "js-yaml";
+import fs from "fs";
+import { OpenAPIV3 } from "openapi-types";
 
 const start = async () => {
   const app = fastify({ logger: true }).withTypeProvider<ZodTypeProvider>();
@@ -17,6 +18,16 @@ const start = async () => {
     generateFakeData(3);
 
     await app.register(cors, { origin: "*" });
+
+    const swaggerDoc = yaml.load(
+      fs.readFileSync("./swagger.yaml", "utf8")
+    ) as OpenAPIV3.Document;
+    await app.register(fastifySwagger, {
+      mode: "static",
+      specification: { document: swaggerDoc },
+    });
+
+    await app.register(fastifySwaggerUi, { routePrefix: "/docs" });
 
     app.register(movieRoutes, { prefix: "/movies" });
     app.register(categoriesRoute, { prefix: "/categories" });
@@ -30,7 +41,8 @@ const start = async () => {
       app.log.info(`Server listening at ${address}`);
     });
   } catch (error) {
-    app.log.error("Failed to start server:", error);
+    app.log.error("Failed to start server:");
+    app.log.error(error)
     process.exit(1);
   }
 };

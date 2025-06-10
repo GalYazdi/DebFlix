@@ -1,0 +1,39 @@
+openapi: 3.0.0
+info:
+  version: '1.0.0'
+  title: 'DebFlix API'
+  description: 'This API provides access to DebFlix data'
+
+paths:
+  /items:
+    get:
+      summary: Get all items
+      responses:
+        '200':
+          description: A list of items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                      example: 54742885-e4de-4745-8bd0-a18dbf9fed92
+                    title:
+                      type: string
+                      example: "Spiderman"
+                    year:
+                      type: integer
+                      example: 2024
+                    director:
+                      type: string
+                      example: Gal
+
+
+
+
+
+  

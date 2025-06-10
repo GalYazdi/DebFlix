@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { actors } from "../../services/mockDB";
 import { getRandomMovies } from "./fakeHelpers";
-import { Actor } from "../../types/actor";
+import { Actor } from "debflix-common";
 
 const fakeActorData = (): Actor => ({
   id: faker.string.uuid(),

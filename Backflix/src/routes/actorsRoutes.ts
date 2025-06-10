@@ -6,12 +6,9 @@ import {
   getActorByIdHandler,
   deleteActorHandler,
 } from "../controllers/actorsController";
-import {addActorSchema } from "../schemas/actorsSchema";
-import { getByIdParamsSchema } from "../schemas/paramsSchema";
-import {
-  getByIdQuerySchema,
- 
-} from "../schemas/queryStringSchema";
+import { addActorSchema } from "debflix-common";
+import { getByIdParamsSchema } from "debflix-common";
+import { getByIdQuerySchema } from "debflix-common";
 
 export const actorRoutes = (fastify: FastifyInstance) => {
   fastify.addHook("onRequest", async (request, reply) => {

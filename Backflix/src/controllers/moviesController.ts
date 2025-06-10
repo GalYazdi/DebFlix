@@ -7,7 +7,7 @@ import {
 } from "../services/moviesServices";
 import { StatusCodes } from "http-status-codes";
 import { handleRequest } from "../utils/handleRequest";
-import { moviesInput } from "../schemas/moviesSchema";
+import { moviesInput } from "debflix-common";
 
 export const addMovieHandler = async (
   request: FastifyRequest<{ Body: moviesInput }>,

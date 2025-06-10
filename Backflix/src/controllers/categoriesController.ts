@@ -7,7 +7,7 @@ import {
 } from "../services/categoriesServices";
 import { StatusCodes } from "http-status-codes";
 import { handleRequest } from "../utils/handleRequest";
-import { categoriesInput } from "../schemas/categoriesSchema";
+import { categoriesInput } from "debflix-common";
 
 export const addCategoryHandler = async (
   request: FastifyRequest<{ Body: categoriesInput }>,

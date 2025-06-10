@@ -7,7 +7,7 @@ import {
 import { FastifyReply, FastifyRequest } from "fastify";
 import { StatusCodes } from "http-status-codes";
 import { handleRequest } from "../utils/handleRequest";
-import { actorsInput } from "../schemas/actorsSchema";
+import { actorsInput } from "debflix-common";
 
 export const addActorHandler = async (
   request: FastifyRequest<{ Body: actorsInput }>,

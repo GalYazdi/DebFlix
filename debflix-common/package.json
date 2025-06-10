@@ -18,5 +18,9 @@
   "devDependencies": {
     "tsup": "^8.5.0",
     "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^9.8.0",
+    "zod": "^3.25.57"
   }
 }

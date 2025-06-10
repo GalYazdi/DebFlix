@@ -1,3 +1,2 @@
-export function sayHello(){
-     //...
-}
+export * from './schemas'
+export * from './types'

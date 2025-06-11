@@ -1,16 +1,40 @@
 openapi: 3.0.0
 info:
-  version: '1.0.0'
-  title: 'DebFlix API'
-  description: 'This API provides access to DebFlix data'
+  version: "1.0.0"
+  title: "DebFlix API"
+  description: "This API provides access to DebFlix data"
 
 paths:
-  /items:
+  /movies/add:
     get:
-      summary: Get all items
+      summary: Add a new movie 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "Spiderman"
+                year:
+                  type: integer
+                  example: 2024
+                director:
+                  type: string   
+                  example: Gal Y              
+      responses: 
+        "201": 
+          description: "Movie created successfully"
+        "500":
+          description: "Internal server error"
+  /movies/getAll:
+    get:
+      summary: Get all movies
       responses:
-        '200':
-          description: A list of items
+        "200":
+          description: Returns all movies
           content:
             application/json:
               schema:
@@ -21,19 +45,62 @@ paths:
                     id:
                       type: string
                       format: uuid
-                      example: 54742885-e4de-4745-8bd0-a18dbf9fed92
                     title:
                       type: string
-                      example: "Spiderman"
                     year:
                       type: integer
-                      example: 2024
                     director:
                       type: string
-                      example: Gal
+              example:
+                - id: 54742885-e4de-4745-8bd0-a18dbf9fed92
+                  title: Spiderman
+                  year: 2024
+                  director: Gal
+                - id: 20367885-e4de-9999-8bd0-a18dbf9fed92
+                  title: Batman
+                  year: 2025
+                  director: Israel
+        "500":
+          description: Internal server error
+  /movies/get/{id}:
+    get:
+      summary: Obtain specific movie
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          description: "The ID of the movie"
+          schema:
+            type: string
+            format: uuid
+            example: 20367885-e4de-9999-8bd0-a18dbf9fed92
+      responses:
+        "200":
+          description: Returns specific movie
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: 54742885-e4de-4745-8bd0-a18dbf9fed92
+                  title:
+                    type: string
+                    example: Spiderman
+                  year:
+                    type: integer
+                    example: 2024
+                  director:
+                    type: string
+                    example: Gal
+        "404":
+          description: Movie not found
+        "500":
+          description: "Internal server error"
+                  
 
 
+          
 
-
-
-  

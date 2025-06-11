@@ -34,7 +34,7 @@ export const getMovieByIdHandler = async (
     const movie = getMovieById(request.params.id);
 
     if (!movie) {
-      reply.status(StatusCodes.NOT_FOUND).send({ error: "Movie not foundzzz" });
+      reply.status(StatusCodes.NOT_FOUND).send({ error: "Movie not found" });
       return;
     }
     return movie;

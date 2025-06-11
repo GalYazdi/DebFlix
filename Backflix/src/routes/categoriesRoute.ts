@@ -5,9 +5,9 @@ import {
   getCategoryByIdHandler,
   deleteCategoryHandler,
 } from "../controllers/categoriesController";
-import { addCategorySchema } from "../schemas/categoriesSchema";
-import { getByIdParamsSchema } from "../schemas/paramsSchema";
-import { getByIdQuerySchema } from "../schemas/queryStringSchema";
+import { addCategorySchema } from "debflix-common/schemas";
+import { getByIdParamsSchema } from "debflix-common/schemas";
+import { getByIdQuerySchema } from "debflix-common/schemas";
 
 export const categoriesRoute = (fastify: FastifyInstance) => {
   return (

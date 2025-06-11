@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { categories } from "../../services/mockDB";
 import { getRandomCategory, getRandomMovies } from "./fakeHelpers";
-import { Category } from "debflix-common";
+import { Category } from "debflix-common/types";
 
 const fakeCategoryData = (): Category => ({
   id: faker.string.uuid(),

@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { Actor } from "debflix-common";
+import { Actor } from "debflix-common/types";
 import { actors } from "./mockDB";
 
 

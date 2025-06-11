@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { movies } from "../../services/mockDB";
-import { Movie } from "debflix-common";
+import { Movie } from "debflix-common/types";
 
 const fakeMovieData = (): Movie => ({
   id: faker.string.uuid(),

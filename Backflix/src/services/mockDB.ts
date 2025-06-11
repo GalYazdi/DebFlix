@@ -1,6 +1,6 @@
-import { Actor } from "debflix-common";
-import { Category } from "debflix-common";
-import { Movie } from "debflix-common";
+import { Actor } from "debflix-common/types";
+import { Category } from "debflix-common/types";
+import { Movie } from "debflix-common/types";
 
 export const categories: Category[] = [];
 export const movies: Movie[] = [];

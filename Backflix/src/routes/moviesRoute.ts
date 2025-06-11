@@ -5,9 +5,9 @@ import {
   getMovieByIdHandler,
   deleteMovieHandler,
 } from "../controllers/moviesController";
-import { addMovieSchema } from "debflix-common";
-import { getByIdParamsSchema } from "debflix-common";
-import { getByIdQuerySchema } from "debflix-common";
+import { addMovieSchema } from "debflix-common/schemas";
+import { getByIdParamsSchema } from "debflix-common/schemas";
+import { getByIdQuerySchema } from "debflix-common/schemas";
 
 export const movieRoutes = (fastify: FastifyInstance) => {
   fastify.addHook("onRequest", async (request, reply) => {

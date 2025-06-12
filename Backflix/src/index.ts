@@ -7,7 +7,7 @@ import { validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
 import { generateFakeData } from "./utils/faker/generateAllData";
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
-import yaml from "js-yaml";
+import yaml from "js-yaml"
 import fs from "fs";
 import { OpenAPIV3 } from "openapi-types";
 

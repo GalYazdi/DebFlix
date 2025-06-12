@@ -6,7 +6,7 @@ info:
 
 paths:
   /movies/add:
-    get:
+    post:
       summary: Add a new movie 
       requestBody:
         required: true
@@ -64,7 +64,7 @@ paths:
           description: Internal server error
   /movies/get/{id}:
     get:
-      summary: Obtain specific movie
+      summary: Obtain specific movie by ID
       parameters: 
         - name: id
           in: path
@@ -99,6 +99,53 @@ paths:
           description: Movie not found
         "500":
           description: "Internal server error"
+  /movies/delete:
+    delete:
+      summary: Delete a movie by ID 
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: "The ID of the movie"
+          schema:
+            type: string
+            format: uuid
+            example: 54742885-e4de-4745-8bd0-a18dbf9fed92
+      responses:
+        "204":
+          description: "No content"
+        "500":
+          description: "Internal server error"
+
+  /actors/add:
+    post:
+      summary: "Add a new actor"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Monkey D. Luffy"
+                birthDate:
+                  type: integer
+                  format: int64
+                  example: 631152000000
+      responses:
+        "201":
+          description: "Actor created Successfully"
+        "501":
+          description: "Internal server error"
+
+
+
+
+
+
+
                   
 
 

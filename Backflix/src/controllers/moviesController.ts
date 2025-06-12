@@ -8,6 +8,7 @@ import {
 import { StatusCodes } from "http-status-codes";
 import { handleRequest } from "../utils/handleRequest";
 import { moviesInput } from "../schemas/moviesSchema";
+import { AppError } from "../utils/errors";
 
 export const addMovieHandler = async (
   request: FastifyRequest<{ Body: moviesInput }>,
@@ -34,8 +35,7 @@ export const getMovieByIdHandler = async (
     const movie = getMovieById(request.params.id);
 
     if (!movie) {
-      reply.status(StatusCodes.NOT_FOUND).send({ error: "Movie not found" });
-      return;
+      throw new AppError("Movie not found", StatusCodes.NOT_FOUND)
     }
     return movie;
   });

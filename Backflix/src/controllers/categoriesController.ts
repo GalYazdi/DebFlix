@@ -8,6 +8,7 @@ import {
 import { StatusCodes } from "http-status-codes";
 import { handleRequest } from "../utils/handleRequest";
 import { categoriesInput } from "../schemas/categoriesSchema";
+import { AppError } from "../utils/errors";
 
 export const addCategoryHandler = async (
   request: FastifyRequest<{ Body: categoriesInput }>,
@@ -34,9 +35,7 @@ export const getCategoryByIdHandler = async (
     const category = getCategoryById(request.params.id);
 
     if (!category) {
-      return reply
-        .status(StatusCodes.NOT_FOUND)
-        .send({ error: "Category not found" });
+      throw new AppError("Category not found", StatusCodes.NOT_FOUND);
     }
     return category;
   });

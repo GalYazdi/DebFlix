@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
-import { Movie } from "../types/movie";
 import { Actor } from "../types/actor";
 import { actors } from "./mockDB";
-
+import { AppError } from "../utils/errors";
+import { StatusCodes } from "http-status-codes";
 
 export const addActor = (actor: Omit<Actor, "id">) => {
   if (
@@ -11,7 +11,7 @@ export const addActor = (actor: Omit<Actor, "id">) => {
         name === actor.name && birthDate === actor.birthDate
     )
   ) {
-    throw new Error("Actor already exists");
+    throw new AppError("Actor already exists", StatusCodes.CONFLICT);
   }
 
   const newActor: Actor = {
@@ -33,7 +33,7 @@ export const deleteActor = (id: string) => {
   const index = actors.findIndex((actor) => actor.id === id);
   index === -1
     ? (() => {
-        throw new Error("Actor not found");
+        throw new AppError("Actor not found", StatusCodes.NOT_FOUND);
       })()
     : null;
 

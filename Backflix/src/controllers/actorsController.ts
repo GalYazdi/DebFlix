@@ -8,6 +8,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { StatusCodes } from "http-status-codes";
 import { handleRequest } from "../utils/handleRequest";
 import { actorsInput } from "../schemas/actorsSchema";
+import { AppError } from "../utils/errors";
 
 export const addActorHandler = async (
   request: FastifyRequest<{ Body: actorsInput }>,
@@ -34,9 +35,7 @@ export const getActorByIdHandler = async (
     const actor = getActorById(request.params.id);
 
     if (!actor) {
-      return reply
-        .status(StatusCodes.NOT_FOUND)
-        .send({ error: "Actor not found" });
+      throw new AppError("Actor not found", StatusCodes.NOT_FOUND)
     }
     return actor;
   });

@@ -1,10 +1,12 @@
 import { Category } from "../types/category";
 import { v4 as uuidv4 } from "uuid";
 import { categories } from "./mockDB";
+import { AppError } from "../utils/errors";
+import { StatusCodes } from "http-status-codes";
 
 export const addCategory = (category: Omit<Category, "id">) => {
   if (categories.find((c) => c.name === category.name)) {
-    throw new Error("Category already exists");
+    throw new AppError("Category already exists", StatusCodes.CONFLICT);
   }
 
   const newCategory: Category = {
@@ -26,7 +28,7 @@ export const deleteCategory = (id: string) => {
   const index = categories.findIndex((c) => c.id === id);
   index === -1
     ? (() => {
-        throw new Error("Category not found");
+        throw new AppError("Category not found", StatusCodes.NOT_FOUND);
       })()
     : null;
 

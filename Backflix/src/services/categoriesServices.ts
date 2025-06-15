@@ -1,4 +1,4 @@
-import { Category } from "../types/category";
+import { Category } from "debflix-common/types";
 import { v4 as uuidv4 } from "uuid";
 import { categories } from "./mockDB";
 

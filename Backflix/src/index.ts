@@ -7,9 +7,10 @@ import { validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
 import { generateFakeData } from "./utils/faker/generateAllData";
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
-import yaml from "js-yaml"
+import yaml from "js-yaml";
 import fs from "fs";
 import { OpenAPIV3 } from "openapi-types";
+import path from "path";
 
 const start = async () => {
   const app = fastify({ logger: true }).withTypeProvider<ZodTypeProvider>();
@@ -19,12 +20,12 @@ const start = async () => {
 
     await app.register(cors, { origin: "*" });
 
-    const swaggerDoc = yaml.load(
-      fs.readFileSync("./swagger.yaml", "utf8")
-    ) as OpenAPIV3.Document;
     await app.register(fastifySwagger, {
       mode: "static",
-      specification: { document: swaggerDoc },
+      specification: {
+        path: path.join(__dirname, "../swagger.yaml"),
+        baseDir: __dirname,
+      },
     });
 
     await app.register(fastifySwaggerUi, { routePrefix: "/docs" });
@@ -42,7 +43,7 @@ const start = async () => {
     });
   } catch (error) {
     app.log.error("Failed to start server:");
-    app.log.error(error)
+    app.log.error(error);
     process.exit(1);
   }
 };

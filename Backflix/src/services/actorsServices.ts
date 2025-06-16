@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { Actor } from "../types/actor";
+import { Actor } from "debflix-common/types";
 import { actors } from "./mockDB";
 import { AppError } from "../utils/errors";
 import { StatusCodes } from "http-status-codes";

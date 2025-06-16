@@ -7,7 +7,7 @@ import {
 } from "../services/categoriesServices";
 import { StatusCodes } from "http-status-codes";
 import { handleRequest } from "../utils/handleRequest";
-import { categoriesInput } from "../schemas/categoriesSchema";
+import { categoriesInput } from "debflix-common/schemas";
 import { AppError } from "../utils/errors";
 
 export const addCategoryHandler = async (

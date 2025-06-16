@@ -8,6 +8,7 @@ import {
 import { StatusCodes } from "http-status-codes";
 import { handleRequest } from "../utils/handleRequest";
 import { moviesInput } from "debflix-common/schemas";
+import { AppError } from "../utils/errors";
 
 export const addMovieHandler = async (
   request: FastifyRequest<{ Body: moviesInput }>,
@@ -31,12 +32,12 @@ export const getMovieByIdHandler = async (
   reply: FastifyReply
 ) => {
   return handleRequest(reply, StatusCodes.OK, () => {
-    const movie = getMovieById(request.params.id);
+    const movie =
+      getMovieById(request.params.id) ||
+      (() => {
+        throw new AppError("Movie not found", StatusCodes.NOT_FOUND);
+      })();
 
-    if (!movie) {
-      reply.status(StatusCodes.NOT_FOUND).send({ error: "Movie not foundzzz" });
-      return;
-    }
     return movie;
   });
 };

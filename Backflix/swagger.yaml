@@ -1,0 +1,470 @@
+openapi: 3.0.0
+info:
+  version: "1.0.0"
+  title: "DebFlix API"
+  description: "This API provides access to DebFlix data"
+
+paths:
+  /movies/add:
+    post:
+      summary: Add a new movie
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "Spiderman"
+                year:
+                  type: integer
+                  example: 2024
+                director:
+                  type: string
+                  example: Gal Y
+      responses:
+        "201":
+          description: "Movie created successfully"
+        "400":
+          description: "Bad request"
+        "409":
+          description: "Movie already exist"
+        "500":
+          description: "Internal server error"
+
+  /movies/getAll:
+    get:
+      summary: Get all movies
+      responses:
+        "200":
+          description: Returns all movies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                    title:
+                      type: string
+                    year:
+                      type: integer
+                    director:
+                      type: string
+              example:
+                - id: 54742885-e4de-4745-8bd0-a18dbf9fed92
+                  title: Spiderman
+                  year: 2024
+                  director: Gal
+                - id: 20367885-e4de-9999-8bd0-a18dbf9fed92
+                  title: Batman
+                  year: 2025
+                  director: Israel
+        "500":
+          description: Internal server error
+
+  /movies/get/{id}:
+    get:
+      summary: Obtain specific movie by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "The ID of the movie"
+          schema:
+            type: string
+            format: uuid
+            example: 20367885-e4de-9999-8bd0-a18dbf9fed92
+      responses:
+        "200":
+          description: Returns specific movie
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: 54742885-e4de-4745-8bd0-a18dbf9fed92
+                  title:
+                    type: string
+                    example: Spiderman
+                  year:
+                    type: integer
+                    example: 2024
+                  director:
+                    type: string
+                    example: Gal
+        "404":
+          description: Movie not found
+        "500":
+          description: "Internal server error"
+
+  /movies/delete:
+    delete:
+      summary: Delete a movie by ID
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: "The ID of the movie"
+          schema:
+            type: string
+            format: uuid
+            example: 54742885-e4de-4745-8bd0-a18dbf9fed92
+      responses:
+        "204":
+          description: "Movie deleted successfully"
+        "404":
+          description: "Movie not found"
+        "500":
+          description: "Internal server error"
+
+  /actors/add:
+    post:
+      summary: "Add a new actor"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Monkey D. Luffy"
+                birthDate:
+                  type: integer
+                  format: int64
+                  example: 631152000000
+                movies:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      title:
+                        type: string
+                        example: "One Piece: Red"
+                      year:
+                        type: integer
+                        example: 2022
+                      director:
+                        type: string
+                        example: Buggy
+      responses:
+        "201":
+          description: "Actor created Successfully"
+        "400":
+          description: "Bad request"
+        "501":
+          description: "Internal server error"
+
+  /actors/getAll:
+    get:
+      summary: Get all actors
+      responses:
+        "200":
+          description: Returns all actors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                    name:
+                      type: string
+                    birthDate:
+                      type: string
+                      format: date-time
+                    movies:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                          title:
+                            type: string
+                          year:
+                            type: integer
+                          director:
+                            type: string
+              example:
+                - id: "96389b14-e7eb-45d8-aed9-11a3183834c2"
+                  name: Monkey D. Luffy
+                  birthDate: "2004-10-25T19:07:04.421Z"
+                  movies:
+                    - id: abc12345-1234-5678-9101-abcdefabcdef
+                      title: "One Piece: Red"
+                      year: 2022
+                      director: Buggy
+                - id: "23456b14-e7sb-45d8-aed9-11a3183834z9"
+                  name: Uchiha Sasuke
+                  birthDate: "2003-12-22T19:07:04.421Z"
+                  movies: []
+        "500":
+          description: "Internal server error"
+
+  /actors/get/{id}:
+    get:
+      summary: Obtain specific actor by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the actor
+          schema:
+            type: string
+            format: uuid
+            example: 96389b14-e7eb-45d8-aed9-11a3183834c2
+      responses:
+        "200":
+          description: Returns specific actor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  name:
+                    type: string
+                  birthDate:
+                    type: string
+                    format: date-time
+                  movies:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        title:
+                          type: string
+                        year:
+                          type: integer
+                        director:
+                          type: string
+              example:
+                id: "96389b14-e7eb-45d8-aed9-11a3183834c2"
+                name: Monkey D. Luffy
+                birthDate: "2004-10-25T19:07:04.421Z"
+                movies:
+                  - id: abc12345-1234-5678-9101-abcdefabcdef
+                    title: "One Piece: Red"
+                    year: 2022
+                    director: Buggy
+        "404":
+          description: Actor not found
+        "500":
+          description: Internal server error
+
+  /actors/delete:
+    delete:
+      summary: Delete actor by ID
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: The ID of the actor
+          schema:
+            type: string
+            format: uuid
+            example: 96389b14-e7eb-45d8-aed9-11a3183834c2
+      responses:
+        "204":
+          description: Movie deleted successfully
+        "404":
+          description: Movie not found
+        "500":
+          description: Internal server error
+
+  /categories/add:
+    post:
+      summary: Add a new category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                movies:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      title:
+                        type: string
+                      year:
+                        type: integer
+                      director:
+                        type: string
+              example:
+                name: Animation
+                movies:
+                  - id: abc12345-1234-5678-9101-abcdefabcdef
+                    title: "One Piece: Red"
+                    year: 2022
+                    director: Buggy
+                  - id: b5f8637e-59d2-4a4e-bc93-a1d12c7e542a
+                    title: "The Last: Naruto the Movie"
+                    year: 2014
+                    director: Kakashi Hatake
+      responses:
+        "201":
+          description: Category added successfully
+        "400":
+          description: Bad request
+        "409":
+          description: Category already exist
+        "500":
+          description: Internal server error
+
+  /categories/getAll:
+    get:
+      summary: Get all categories
+      responses:
+        "200":
+          description: Returns all categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                    name:
+                      type: string
+                    movies:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                          title:
+                            type: string
+                          year:
+                            type: integer
+                          director:
+                            type: string
+              example:
+                - id: abc12345-1234-5678-9101-abcdefabcdef
+                  name: Animation
+                  movies:
+                    - id: xyu54678-1234-5678-9101-abcdefabcdef
+                      title: "One Piece: Red"
+                      year: 2022
+                      director: Buggy
+                    - id: b5f8637e-59d2-4a4e-bc93-a1d12c7e542a
+                      title: "The Last: Naruto the Movie"
+                      year: 2014
+                      director: Kakashi Hatake
+                - id: xgk94576-1234-5678-9101-abcdefabcdef
+                  name: Action
+                  movies: []
+
+        "500":
+          description: Internal server error
+
+  /categories/get/{id}:
+    get:
+      summary: Obtain specific category by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the category
+          schema:
+            type: string
+            format: uuid
+            example: b5f8637e-59d2-4a4e-bc93-a1d12c7e542a
+      responses:
+        "200":
+          description: Returns specific category
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  name:
+                    type: string
+                  movies:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        title:
+                          type: string
+                        year:
+                          type: integer
+                        director:
+                          type: string
+              example:
+                id: abc12345-1234-5678-9101-abcdefabcdef
+                name: Animation
+                movies:
+                  - id: xyu54678-1234-5678-9101-abcdefabcdef
+                    title: "One Piece: Red"
+                    year: 2022
+                    director: Buggy
+                  - id: b5f8637e-59d2-4a4e-bc93-a1d12c7e542a
+                    title: "The Last: Naruto the Movie"
+                    year: 2014
+                    director: Kakashi Hatake
+        "404":
+          description: Category not found
+        "500":
+          description: Internal server error
+
+  /categories/delete:
+    delete:
+      summary: Delete category by ID
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: The id of the category
+          schema:
+            type: string
+            format: uuid
+            example: b5f8637e-59d2-4a4e-bc93-a1d12c7e542a
+      responses:
+        "204":
+          description: Category deleted successfully
+        "404":
+          description: Category not found
+        "500":
+          description: Internal server error

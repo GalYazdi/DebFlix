@@ -8,6 +8,7 @@ import {
 import { StatusCodes } from "http-status-codes";
 import { handleRequest } from "../utils/handleRequest";
 import { categoriesInput } from "debflix-common/schemas";
+import { AppError } from "../utils/errors";
 
 export const addCategoryHandler = async (
   request: FastifyRequest<{ Body: categoriesInput }>,
@@ -31,13 +32,12 @@ export const getCategoryByIdHandler = async (
   reply: FastifyReply
 ) => {
   return handleRequest(reply, StatusCodes.OK, () => {
-    const category = getCategoryById(request.params.id);
+    const category =
+      getCategoryById(request.params.id) ||
+      (() => {
+        throw new AppError("Category not found", StatusCodes.NOT_FOUND);
+      })();
 
-    if (!category) {
-      return reply
-        .status(StatusCodes.NOT_FOUND)
-        .send({ error: "Category not found" });
-    }
     return category;
   });
 };

@@ -8,6 +8,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { StatusCodes } from "http-status-codes";
 import { handleRequest } from "../utils/handleRequest";
 import { actorsInput } from "debflix-common/schemas";
+import { AppError } from "../utils/errors";
 
 export const addActorHandler = async (
   request: FastifyRequest<{ Body: actorsInput }>,
@@ -31,13 +32,12 @@ export const getActorByIdHandler = async (
   reply: FastifyReply
 ) => {
   return handleRequest(reply, StatusCodes.OK, () => {
-    const actor = getActorById(request.params.id);
+    const actor =
+      getActorById(request.params.id) ||
+      (() => {
+        throw new AppError("Actor not found", StatusCodes.NOT_FOUND);
+      })();
 
-    if (!actor) {
-      return reply
-        .status(StatusCodes.NOT_FOUND)
-        .send({ error: "Actor not found" });
-    }
     return actor;
   });
 };

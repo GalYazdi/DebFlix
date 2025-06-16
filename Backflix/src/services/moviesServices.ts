@@ -5,16 +5,15 @@ import { AppError } from "../utils/errors";
 import { StatusCodes } from "http-status-codes";
 
 export const addMovie = (movie: Omit<Movie, "id">) => {
-  if (
-    movies.find(
-      (m) =>
-        m.title === movie.title &&
-        m.year === movie.year &&
-        m.director === movie.director
-    )
-  ) {
-    throw new AppError("Movie already exists", StatusCodes.CONFLICT);
-  }
+  movies.find(
+    (m) =>
+      m.title === movie.title &&
+      m.year === movie.year &&
+      m.director === movie.director
+  ) &&
+    (() => {
+      throw new AppError("Movie already exists", StatusCodes.CONFLICT);
+    })();
 
   const newMovie: Movie = {
     ...movie,
@@ -31,10 +30,9 @@ export const getMovieById = (id: string): Movie | undefined =>
 export const deleteMovie = (id: string): void => {
   const index = movies.findIndex((movie) => movie.id === id);
   index === -1
-    ? (() => {
+    && (() => {
         throw new AppError("Movie not found", StatusCodes.NOT_FOUND);
       })()
-    : null;
 
   movies.splice(index, 1);
 };

@@ -32,11 +32,12 @@ export const getCategoryByIdHandler = async (
   reply: FastifyReply
 ) => {
   return handleRequest(reply, StatusCodes.OK, () => {
-    const category = getCategoryById(request.params.id);
+    const category =
+      getCategoryById(request.params.id) ||
+      (() => {
+        throw new AppError("Category not found", StatusCodes.NOT_FOUND);
+      })();
 
-    if (!category) {
-      throw new AppError("Category not found", StatusCodes.NOT_FOUND);
-    }
     return category;
   });
 };

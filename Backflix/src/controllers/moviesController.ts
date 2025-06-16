@@ -32,11 +32,12 @@ export const getMovieByIdHandler = async (
   reply: FastifyReply
 ) => {
   return handleRequest(reply, StatusCodes.OK, () => {
-    const movie = getMovieById(request.params.id);
+    const movie =
+      getMovieById(request.params.id) ||
+      (() => {
+        throw new AppError("Movie not found", StatusCodes.NOT_FOUND);
+      })();
 
-    if (!movie) {
-      throw new AppError("Movie not found", StatusCodes.NOT_FOUND)
-    }
     return movie;
   });
 };

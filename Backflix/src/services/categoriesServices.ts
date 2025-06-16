@@ -5,9 +5,10 @@ import { AppError } from "../utils/errors";
 import { StatusCodes } from "http-status-codes";
 
 export const addCategory = (category: Omit<Category, "id">) => {
-  if (categories.find((c) => c.name === category.name)) {
-    throw new AppError("Category already exists", StatusCodes.CONFLICT);
-  }
+  categories.find((c) => c.name === category.name) &&
+    (() => {
+      throw new AppError("Category already exists", StatusCodes.CONFLICT);
+    })();
 
   const newCategory: Category = {
     ...category,
@@ -26,11 +27,10 @@ export const getCategoryById = (id: string): Category | undefined => {
 
 export const deleteCategory = (id: string) => {
   const index = categories.findIndex((c) => c.id === id);
-  index === -1
-    ? (() => {
-        throw new AppError("Category not found", StatusCodes.NOT_FOUND);
-      })()
-    : null;
+  index === -1 &&
+    (() => {
+      throw new AppError("Category not found", StatusCodes.NOT_FOUND);
+    })();
 
   categories.splice(index, 1);
 };

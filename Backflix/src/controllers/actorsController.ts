@@ -32,11 +32,12 @@ export const getActorByIdHandler = async (
   reply: FastifyReply
 ) => {
   return handleRequest(reply, StatusCodes.OK, () => {
-    const actor = getActorById(request.params.id);
+    const actor =
+      getActorById(request.params.id) ||
+      (() => {
+        throw new AppError("Actor not found", StatusCodes.NOT_FOUND);
+      })();
 
-    if (!actor) {
-      throw new AppError("Actor not found", StatusCodes.NOT_FOUND)
-    }
     return actor;
   });
 };

@@ -16,7 +16,7 @@ const start = async () => {
   const app = fastify({ logger: true }).withTypeProvider<ZodTypeProvider>();
   app.setValidatorCompiler(validatorCompiler);
   try {
-    generateFakeData(3);
+    generateFakeData(8);
 
     await app.register(cors, { origin: "*" });
 

@@ -5,7 +5,9 @@ import { Actor } from "debflix-common/types";
 
 const fakeActorData = (): Actor => ({
   id: faker.string.uuid(),
-  name: faker.person.fullName(),
+  firstName: faker.person.firstName(),
+  lastName: faker.person.lastName(),
+  gender: faker.person.gender(),
   birthDate: faker.date.birthdate(),
   movies: getRandomMovies(),
 });

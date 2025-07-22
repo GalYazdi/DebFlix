@@ -15,7 +15,7 @@ export const addCategoryHandler = async (
   reply: FastifyReply
 ) => {
   return handleRequest(reply, StatusCodes.CREATED, () => {
-    addCategory({ ...request.body, movies: request.body.movies || [] });
+    addCategory({ ...request.body});
     return { message: "Category added successfully" };
   });
 };

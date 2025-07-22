@@ -11,9 +11,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "debflix-common": "file:../../DebflixLib/libs/debflix-common-1.0.0.tgz",
     "@fastify/swagger": "^9.5.1",
     "@fastify/swagger-ui": "^5.2.3",
+    "debflix-common": "file:../../DebflixLib/libs/debflix-common-1.0.0.tgz",
     "fastify": "^5.3.3",
     "fastify-type-provider-zod": "^4.0.2",
     "js-yaml": "^4.1.0",

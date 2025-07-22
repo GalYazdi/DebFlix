@@ -6,8 +6,10 @@ import { StatusCodes } from "http-status-codes";
 
 export const addActor = (actor: Omit<Actor, "id">) => {
   actors.find(
-    ({ name, birthDate }) =>
-      name === actor.name && birthDate === actor.birthDate
+    ({ firstName, lastName, birthDate }) =>
+      firstName === actor.firstName &&
+      lastName === actor.lastName &&
+      birthDate === actor.birthDate
   ) &&
     (() => {
       throw new AppError("Actor already exists", StatusCodes.CONFLICT);

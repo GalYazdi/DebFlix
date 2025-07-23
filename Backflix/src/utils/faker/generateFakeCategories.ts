@@ -6,7 +6,7 @@ import { Category } from "debflix-common/types";
 const fakeCategoryData = (): Category => ({
   id: faker.string.uuid(),
   name: getRandomCategory(),
-  movies: getRandomMovies(),
+  description: faker.lorem.sentence(),
 });
 
 export const generateFakeCategories = (amount: number) => {

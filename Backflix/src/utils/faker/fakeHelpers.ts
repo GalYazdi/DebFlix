@@ -16,3 +16,10 @@ export const getRandomCategory = () => {
     "Animation",
   ]);
 };
+
+export const getRandomCategoties = () => {
+  return faker.helpers.arrayElements(
+    ["Action", "Drama", "Comedy", "Horror", "Documentary", "Animation"],
+    3
+  );
+};

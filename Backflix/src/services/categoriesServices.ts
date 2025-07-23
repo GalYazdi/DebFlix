@@ -13,7 +13,6 @@ export const addCategory = (category: Omit<Category, "id">) => {
   const newCategory: Category = {
     ...category,
     id: uuidv4(),
-    movies: category.movies || [],
   };
 
   categories.push(newCategory);
